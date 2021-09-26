@@ -13,13 +13,16 @@ namespace Catalog.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly InMemItemsRepository repository;
+        private readonly IItemsRepository repository;
         /* THIS IS WRONG -> WE NEED TO APPLY DEPENDENCY INVERSION
         public ItemsController(){
             repository = new InMemItemsRepository();
         }
         */
-        
+        public ItemsController(IItemsRepository repository){
+            this.repository = repository;
+        }
+
         //GET /items
         [HttpGet]
         public IEnumerable<Item> GetItems()
