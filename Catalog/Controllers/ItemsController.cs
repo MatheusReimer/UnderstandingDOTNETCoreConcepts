@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Catalog.Repositories;
 using System.Collections.Generic;
 using Catalog.Entities;
+using Catalog.DTOs;
+using System.Linq;
 
 
 namespace Catalog.Controllers
@@ -25,9 +27,9 @@ namespace Catalog.Controllers
 
         //GET /items
         [HttpGet]
-        public IEnumerable<Item> GetItems()
+        public IEnumerable<ItemDto> GetItems()
         {
-            var items = repository.GetItems();
+            var items = repository.GetItems().Select(item => item.AsDto());
             return items;
         }
 
@@ -35,12 +37,12 @@ namespace Catalog.Controllers
         [HttpGet("{id}")]
 
         ///ACTION RESULT FOR 2 TYPES OF DIFFERNTS RETURNS IN THIS CASE (STATUS AND ITEM)
-        public ActionResult<Item> GetItem(Guid id){
+        public ActionResult<ItemDto> GetItem(Guid id){
             var item = repository.GetItem(id);
             if(item is null){
                 return NotFound();
             }
-            return item;
+            return item.AsDto();
         }
     }
 }

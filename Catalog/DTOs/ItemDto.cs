@@ -1,12 +1,8 @@
 using System;
 
-namespace Catalog.Entities
+namespace Catalog.DTOs
 {
-    ///RECORD TYPE
-    ///immutable objects
-    ///with expressions support
-    ///value-based equality support
-    public record Item
+    public class ItemDto
     {
         public Guid Id{get;init;}
         public string Name{get;init;}
